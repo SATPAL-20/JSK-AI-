@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>JUST SIMPLIFIED KNOWLEDGE</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include Google Fonts for icons -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" />
+  <script src="script.js" defer></script>
+
+  <script>
+    async function sendMessage() {
+      const userInput = document.getElementById('chat-input').value;
+
+      const response = await fetch("http://127.0.0.1:8000/generate/", {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ "user_input": userInput })
+      });
+
+      const responseData = await response.json();
+
+      const responseContainer = document.getElementById('response-container');
+      responseContainer.innerText = responseData.output;
+    }
+  </script>
+</head>
+
+<body>
+  <!-- Main container -->
+  <div class="main-container">
+    <!-- Chats container -->
+    <div class="chat-container">
+      <!-- Chat messages will appear here -->
+    </div>
+    
+    <!-- Typing container -->
+    <div class="typing-container">
+      <div class="typing-content">
+        <div class="typing-textarea">
+          <textarea id="chat-input" spellcheck="false" placeholder="Enter a prompt here" required></textarea>
+          <button id="send-btn" class="material-icons-round" onclick="sendMessage()">send</button>
+        </div>
+        <div class="typing-controls">
+          <button id="theme-btn" class="material-icons-round">brightness_4</button> <!-- Change to appropriate icon for theme -->
+          <button id="delete-btn" class="material-icons-round">delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include your custom scripts at the end -->
+  <script src="script.js"></script>
+</body>
+</html>
